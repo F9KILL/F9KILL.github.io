@@ -1,9 +1,106 @@
 <html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Instalação Arch Linux</title>
 
-<body>
-
-<h2>Em construção...</h2>
-
-</body>
-
+		<style type="text/css">
+			body {
+				color: #00FF00;
+				font-family: Monospace;
+				background-color: #000000;
+			}
+			
+			table {
+				color: #00ff00;
+				background-color: #000000;
+				border-collapse: collapse;
+				border: 1px solid #000000;	
+				font-size: 11pt;
+				border-color: #00FF00;
+			}
+			
+			tr, td {
+				padding: 15px;
+			}
+			
+			font {
+				color: #FF0000;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<center>
+			<h1>Arch Linux</h1>
+			<h3>Instalação básica<br>2018</h3>
+			
+			<table border='1'>
+				<tr>
+					<td>
+						<p>
+						Arch Linux 4.10.3-3-ARCH (tty1)<br>
+						<br>
+						archiso login: root (automatic login)<br>
+						<br>
+						<font>root</font>@archiso ~ # loadkeys br-abnt2<br>
+						<font>root</font>@archiso ~ # wifi-menu<br>
+						<font>root</font>@archiso ~ # systemctl start dhcpcd<br>
+						<font>root</font>@archiso ~ # timedatectl set-ntp true<br>
+						<font>root</font>@archiso ~ # cfdisk<br><br>
+								&nbsp&nbsp&nbsp&nbsp /dev/sda1	boot	512M<br>
+								&nbsp&nbsp&nbsp&nbsp /dev/sda2	LVM<br>	
+						<br>
+						<font>root</font>@archiso ~ # modprobe dm-crypt<br>
+						<font>root</font>@archiso ~ # cryptsetup -c aes-xts-plain64 -y -s 512 luksFormat /dev/sda2<br>
+						<font>root</font>@archiso ~ # cryptsetup luksOpen /dev/sda2 lvm<br>
+						<font>root</font>@archiso ~ # pvcreate /dev/mapper/lvm<br>
+						<font>root</font>@archiso ~ # vgcreate main /dev/mapper/lvm<br>
+						<br>
+						<font>root</font>@archiso ~ # lvcreate -L 40G -n root main<br>
+						<font>root</font>@archiso ~ # lvcreate -L 4G -n swap main<br>
+						<font>root</font>@archiso ~ # lvcreate -l 100%FREE -n home main<br>
+						<br>
+						<font>root</font>@archiso ~ # mkfs.ext3 /dev/sda1<br>
+						<font>root</font>@archiso ~ # mkfs.ext4 /dev/mapper/main-root<br>
+						<font>root</font>@archiso ~ # mkfs.ext4 /dev/mapper/main-home<br>
+						<font>root</font>@archiso ~ # mkswap /dev/mapper/main-swap<br>
+						<font>root</font>@archiso ~ # swapon /dev/mapper/mapper/main-swap<br>
+						<br>
+						<font>root</font>@archiso ~ # mount /dev/mapper/main-root /mnt<br>
+						<font>root</font>@archiso ~ # mkdir /mnt/boot<br>
+						<font>root</font>@archiso ~ # mkdir /mnt/home<br>
+						<font>root</font>@archiso ~ # mount /dev/sda1 /mnt/boot<br>
+						<font>root</font>@archiso ~ # mount /dev/mapper/main-home /mnt/home<br>
+						<br>
+						<font>root</font>@archiso ~ # pacstrap /mnt base base-devel<br>
+						<font>root</font>@archiso ~ # pacstrap /mnt grub-bios<br>
+						<font>root</font>@archiso ~ # genfstab -p -U /mnt > /mnt/etc/fstab<br>
+						<font>root</font>@archiso ~ # arch-chroot /mnt<br>
+						<br>
+						[chroot] pacman -S wireless_tools wpa_supplicant wpa_actiond dialog wicd wicd-gtk xorg xorg-xinit fluxbox<br>
+						<br>
+						[chroot] sed -i 's/modconf block/modconf block keymap encrypt lvm2/' /etc/mkinitcpio.conf<br>
+						[chroot] mkinitcpio -p linux<br>
+						[chroot] grub-install /dev/sda<br>
+						[chroot] sed -i 's/\”\”/\”cryptdevice=\/dev\/sda2:main\”/'<br>
+						[chroot] grub-mkconfig -o /boot/grub/grub.cfg<br>
+						<br>
+						[chroot] passwd<br>
+						[chroot] useradd -m hv60t<br>
+						[chroot] passwd hv60t<br>
+						[chroot] exit<br>
+						<br>
+						<font>root</font>@archiso ~ # umount /mnt/boot<br>
+						<font>root</font>@archiso ~ # umount /mnt/home<br>
+						<font>root</font>@archiso ~ # umount /mnt<br>
+						<font>root</font>@archiso ~ # reboot<img src="img.gif">
+						</p>
+					</td>
+				</tr>
+			</table>
+			<br>
+			<a href="">Script de pós instalação</a>
+			<br>
+		</center>
+	</body>
 </html>
