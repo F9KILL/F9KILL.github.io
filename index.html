@@ -38,7 +38,7 @@
 				<tr>
 					<td>
 						<p>
-						Arch Linux 4.10.3-3-ARCH (tty1)<br>
+						Arch Linux 4.14.15-1-ARCH (tty1)<br>
 						<br>
 						archiso login: root (automatic login)<br>
 						<br>
@@ -53,9 +53,9 @@
 						<font>root</font>@archiso ~ # modprobe dm-crypt<br>
 						<font>root</font>@archiso ~ # cryptsetup -c aes-xts-plain64 -y -s 512 luksFormat /dev/sda2<br>
 						<font>root</font>@archiso ~ # cryptsetup luksOpen /dev/sda2 lvm<br>
+						<br>
 						<font>root</font>@archiso ~ # pvcreate /dev/mapper/lvm<br>
 						<font>root</font>@archiso ~ # vgcreate main /dev/mapper/lvm<br>
-						<br>
 						<font>root</font>@archiso ~ # lvcreate -L 40G -n root main<br>
 						<font>root</font>@archiso ~ # lvcreate -L 4G -n swap main<br>
 						<font>root</font>@archiso ~ # lvcreate -l 100%FREE -n home main<br>
@@ -78,13 +78,11 @@
 						<font>root</font>@archiso ~ # arch-chroot /mnt<br>
 						<br>
 						[chroot] pacman -S wireless_tools wpa_supplicant wpa_actiond dialog wicd wicd-gtk xorg xorg-xinit fluxbox<br>
-						<br>
 						[chroot] sed -i 's/modconf block/modconf block keymap encrypt lvm2/' /etc/mkinitcpio.conf<br>
 						[chroot] mkinitcpio -p linux<br>
 						[chroot] grub-install /dev/sda<br>
 						[chroot] sed -i 's/\”\”/\”cryptdevice=\/dev\/sda2:main\”/'<br>
 						[chroot] grub-mkconfig -o /boot/grub/grub.cfg<br>
-						<br>
 						[chroot] passwd<br>
 						[chroot] useradd -m hv60t<br>
 						[chroot] passwd hv60t<br>
