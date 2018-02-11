@@ -81,8 +81,7 @@
 						[chroot] sed -i 's/modconf block/modconf block keymap encrypt lvm2/' /etc/mkinitcpio.conf<br>
 						[chroot] mkinitcpio -p linux<br>
 						[chroot] grub-install /dev/sda<br>
-						[chroot] sed -i 
-'s/\”\”/\”cryptdevice=\/dev\/sda2:main\”/' /etc/default/grub<br>
+						[chroot] sed -i 's/\”\”/\”cryptdevice=\/dev\/sda2:main\”/' /etc/default/grub<br>
 						[chroot] grub-mkconfig -o /boot/grub/grub.cfg<br>
 						[chroot] passwd<br>
 						[chroot] useradd -m hv60t<br>
