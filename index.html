@@ -5,18 +5,18 @@
 
 		<style type="text/css">
 			body {
-				color: #00FF00;
+				color: #000000;
 				font-family: Monospace;
-				background-color: #000000;
+				background-color: #FFFFFF;
 			}
 			
 			table {
-				color: #00ff00;
+				color: #ACACAB;
 				background-color: #000000;
 				border-collapse: collapse;
 				border: 1px solid #000000;	
 				font-size: 11pt;
-				border-color: #00FF00;
+				border-color: #000000;
 			}
 			
 			tr, td {
@@ -47,8 +47,8 @@
 						<font>root</font>@archiso ~ # systemctl start dhcpcd<br>
 						<font>root</font>@archiso ~ # timedatectl set-ntp true<br>
 						<font>root</font>@archiso ~ # cfdisk<br><br>
-								&nbsp&nbsp&nbsp&nbsp /dev/sda1	boot	512M<br>
-								&nbsp&nbsp&nbsp&nbsp /dev/sda2	LVM<br>	
+								&nbsp&nbsp&nbsp&nbsp /dev/sda1	boot	512M --> Type: 83<br>
+								&nbsp&nbsp&nbsp&nbsp /dev/sda2	LVM --------> Type: 8e<br>	
 						<br>
 						<font>root</font>@archiso ~ # modprobe dm-crypt<br>
 						<font>root</font>@archiso ~ # cryptsetup -c aes-xts-plain64 -y -s 512 luksFormat /dev/sda2<br>
@@ -64,7 +64,7 @@
 						<font>root</font>@archiso ~ # mkfs.ext4 /dev/mapper/main-root<br>
 						<font>root</font>@archiso ~ # mkfs.ext4 /dev/mapper/main-home<br>
 						<font>root</font>@archiso ~ # mkswap /dev/mapper/main-swap<br>
-						<font>root</font>@archiso ~ # swapon /dev/mapper/mapper/main-swap<br>
+						<font>root</font>@archiso ~ # swapon /dev/mapper/main-swap<br>
 						<br>
 						<font>root</font>@archiso ~ # mount /dev/mapper/main-root /mnt<br>
 						<font>root</font>@archiso ~ # mkdir /mnt/boot<br>
@@ -91,7 +91,7 @@
 						<font>root</font>@archiso ~ # umount /mnt/boot<br>
 						<font>root</font>@archiso ~ # umount /mnt/home<br>
 						<font>root</font>@archiso ~ # umount /mnt<br>
-						<font>root</font>@archiso ~ # reboot<img src="img.gif">
+						<font>root</font>@archiso ~ # reboot
 						</p>
 					</td>
 				</tr>
