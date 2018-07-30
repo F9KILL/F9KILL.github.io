@@ -60,9 +60,9 @@
 						<font>root</font>@archiso ~ # lvcreate -L 4G -n swap main<br>
 						<font>root</font>@archiso ~ # lvcreate -l 100%FREE -n home main<br>
 						<br>
-						<font>root</font>@archiso ~ # mkfs.ext3 /dev/sda1<br>
-						<font>root</font>@archiso ~ # mkfs.ext4 /dev/mapper/main-root<br>
-						<font>root</font>@archiso ~ # mkfs.ext4 /dev/mapper/main-home<br>
+						<font>root</font>@archiso ~ # mkfs.ext2 /dev/sda1<br>
+						<font>root</font>@archiso ~ # mkfs.btrfs /dev/mapper/main-root<br>
+						<font>root</font>@archiso ~ # mkfs.xfs /dev/mapper/main-home<br>
 						<font>root</font>@archiso ~ # mkswap /dev/mapper/main-swap<br>
 						<font>root</font>@archiso ~ # swapon /dev/mapper/main-swap<br>
 						<br>
@@ -77,7 +77,14 @@
 						<font>root</font>@archiso ~ # genfstab -p -U /mnt > /mnt/etc/fstab<br>
 						<font>root</font>@archiso ~ # arch-chroot /mnt<br>
 						<br>
-						[chroot] pacman -S wireless_tools wpa_supplicant wpa_actiond dialog wicd wicd-gtk xorg xorg-xinit fluxbox<br>
+						[chroot] ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime<br>
+						[chroot] hwclock --systohc --utc<br>
+						[chroot] echo "pt_BR.UTF-8 UTF-8" >> /etc/locale.gen<br>
+						[chroot] locale-gen<br>
+						[chroot] echo "LANG=pt_BR.UTF-8" >> /etc/locale.conf<br>
+						[chroot] echo "KEYMAP=br-abnt2" >> /etc/vconsole.conf<br>
+						[chroot] echo "xps" >> /etc/hostname<br>
+						[chroot] pacman -S wireless_tools wpa_supplicant wpa_actiond dialog wicd wicd-gtk xorg xorg-xinit fluxbox xterm<br>
 						[chroot] sed -i 's/modconf block/modconf block keymap encrypt lvm2/' /etc/mkinitcpio.conf<br>
 						[chroot] mkinitcpio -p linux<br>
 						[chroot] grub-install /dev/sda<br>
@@ -97,7 +104,10 @@
 				</tr>
 			</table>
 			<br>
-			<a href="">Script de pós instalação</a>
+			<h3>Referências:</h3>
+			<a href="https://gjuniioor.github.io/posts/archlinux-lvm-luks/">gjuniioor.github.io/posts/archlinux-lvm-luks/</a><br>
+			<a href="https://wiki.archlinux.org/index.php/Installation_guide">wiki.archlinux.org/index.php/Installation_guide</a><br>
+			<a href="https://sempreupdate.com.br/como-instalar-o-arch-linux/">sempreupdate.com.br/como-instalar-o-arch-linux/</a><br>
 			<br>
 		</center>
 	</body>
