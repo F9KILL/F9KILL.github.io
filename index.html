@@ -38,7 +38,7 @@
 				<tr>
 					<td>
 						<p>
-						Arch Linux 4.14.15-1-ARCH (tty1)<br>
+						Arch Linux 4.17.11-arch1 (tty1)<br>
 						<br>
 						archiso login: root (automatic login)<br>
 						<br>
@@ -73,25 +73,35 @@
 						<font>root</font>@archiso ~ # mount /dev/mapper/main-home /mnt/home<br>
 						<br>
 						<font>root</font>@archiso ~ # pacstrap /mnt base base-devel<br>
-						<font>root</font>@archiso ~ # pacstrap /mnt grub-bios<br>
 						<font>root</font>@archiso ~ # genfstab -p -U /mnt > /mnt/etc/fstab<br>
 						<font>root</font>@archiso ~ # arch-chroot /mnt<br>
 						<br>
-						[chroot] ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime<br>
-						[chroot] hwclock --systohc --utc<br>
-						[chroot] echo "pt_BR.UTF-8 UTF-8" >> /etc/locale.gen<br>
-						[chroot] locale-gen<br>
-						[chroot] echo "LANG=pt_BR.UTF-8" >> /etc/locale.conf<br>
-						[chroot] echo "KEYMAP=br-abnt2" >> /etc/vconsole.conf<br>
 						[chroot] echo "xps" >> /etc/hostname<br>
-						[chroot] pacman -S wireless_tools wpa_supplicant wpa_actiond dialog wicd wicd-gtk xorg xorg-xinit fluxbox xterm<br>
+						[chroot] echo "127.0.0.1 localhost.localdomain localhost" >> /etc/hosts<br>
+						[chroot] echo "::1 localhost.localdomain localhost" >> /etc/hosts<br>
+						[chroot] echo "127.0.1.1 xps.localdomain xps" >> /etc/hosts<br>
+						[editar] No arquivo "/etc/pacman.conf" descomente as linhas:<br>
+						<br>
+						&nbsp&nbsp&nbsp&nbsp [multilib]<br>
+    					&nbsp&nbsp&nbsp&nbsp include = /etc/pacman.d/mirrorlist<br>
+						<br>
+						[chroot] pacman -Sy<br>
+						[chroot] pacman -S grub git wpa_supplicant networkmanager net-tools<br>
+						<br>
 						[chroot] sed -i 's/modconf block/modconf block keymap encrypt lvm2/' /etc/mkinitcpio.conf<br>
+						[chroot] grub-install --target=i386-pc --recheck /dev/sda<br>
+						[chroot] cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo<br>
 						[chroot] mkinitcpio -p linux<br>
-						[chroot] grub-install /dev/sda<br>
-						[chroot] sed -i 's/\”\”/\”cryptdevice=\/dev\/sda2:main\”/' /etc/default/grub<br>
+						[editar] No arquivo /etc/default/grub mude a linha:<br>
+						<br>
+						&nbsp&nbsp&nbsp&nbspGRUB_CMDLINE_LINUX=””<br>
+						&nbsp&nbsp&nbsp&nbsppara<br>
+						&nbsp&nbsp&nbsp&nbspGRUB_CMDLINE_LINUX=”cryptdevice=/dev/sda2:main”<br>
+						<br>
 						[chroot] grub-mkconfig -o /boot/grub/grub.cfg<br>
+						[chroot] systemctl enable NetworkManager<br>
 						[chroot] passwd<br>
-						[chroot] useradd -m hv60t<br>
+						[chroot] useradd -m -g users -G wheel,storage,power -s /bin/zsh hv60t<br>
 						[chroot] passwd hv60t<br>
 						[chroot] exit<br>
 						<br>
@@ -108,6 +118,7 @@
 			<a href="https://gjuniioor.github.io/posts/archlinux-lvm-luks/">gjuniioor.github.io/posts/archlinux-lvm-luks/</a><br>
 			<a href="https://wiki.archlinux.org/index.php/Installation_guide">wiki.archlinux.org/index.php/Installation_guide</a><br>
 			<a href="https://sempreupdate.com.br/como-instalar-o-arch-linux/">sempreupdate.com.br/como-instalar-o-arch-linux/</a><br>
+			<a href="https://medium.com/@galdino1993/instala%C3%A7%C3%A3o-e-configura%C3%A7%C3%A3o-do-arch-linux-625c406e56ff">medium.com/@galdino1993</a><br>
 			<br>
 		</center>
 	</body>
