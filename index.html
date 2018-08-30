@@ -32,7 +32,7 @@
 	<body>
 		<center>
 			<h1>Arch Linux</h1>
-			<h3>Instalação básica<br>2018</h3>
+			<h3>Instalação de bolso<br>2018</h3>
 			
 			<table border='1'>
 				<tr>
@@ -45,7 +45,6 @@
 						<font>root</font>@archiso ~ # loadkeys br-abnt2<br>
 						<font>root</font>@archiso ~ # wifi-menu<br>
 						<font>root</font>@archiso ~ # systemctl start dhcpcd<br>
-						<font>root</font>@archiso ~ # timedatectl set-ntp true<br>
 						<font>root</font>@archiso ~ # cfdisk<br><br>
 								&nbsp&nbsp&nbsp&nbsp /dev/sda1	boot	512M --> Type: 83<br>
 								&nbsp&nbsp&nbsp&nbsp /dev/sda2	LVM --------> Type: 8e<br>	
@@ -61,8 +60,8 @@
 						<font>root</font>@archiso ~ # lvcreate -l 100%FREE -n home main<br>
 						<br>
 						<font>root</font>@archiso ~ # mkfs.ext2 /dev/sda1<br>
-						<font>root</font>@archiso ~ # mkfs.btrfs /dev/mapper/main-root<br>
-						<font>root</font>@archiso ~ # mkfs.xfs /dev/mapper/main-home<br>
+						<font>root</font>@archiso ~ # mkfs.ext4 /dev/mapper/main-root<br>
+						<font>root</font>@archiso ~ # mkfs.ext4 /dev/mapper/main-home<br>
 						<font>root</font>@archiso ~ # mkswap /dev/mapper/main-swap<br>
 						<font>root</font>@archiso ~ # swapon /dev/mapper/main-swap<br>
 						<br>
@@ -86,7 +85,7 @@
     					&nbsp&nbsp&nbsp&nbsp include = /etc/pacman.d/mirrorlist<br>
 						<br>
 						[chroot] pacman -Sy<br>
-						[chroot] pacman -S grub git wpa_supplicant networkmanager net-tools<br>
+						[chroot] pacman -S linux-zen linux-zen-headers grub git wpa_supplicant networkmanager net-tools<br>
 						<br>
 						[chroot] sed -i 's/modconf block/modconf block keymap encrypt lvm2/' /etc/mkinitcpio.conf<br>
 						[chroot] grub-install --target=i386-pc --recheck /dev/sda<br>
@@ -101,8 +100,6 @@
 						[chroot] grub-mkconfig -o /boot/grub/grub.cfg<br>
 						[chroot] systemctl enable NetworkManager<br>
 						[chroot] passwd<br>
-						[chroot] useradd -m -g users -G wheel,storage,power -s /bin/zsh hv60t<br>
-						[chroot] passwd hv60t<br>
 						[chroot] exit<br>
 						<br>
 						<font>root</font>@archiso ~ # umount /mnt/boot<br>
