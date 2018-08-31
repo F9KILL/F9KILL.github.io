@@ -85,7 +85,7 @@
     					&nbsp&nbsp&nbsp&nbsp include = /etc/pacman.d/mirrorlist<br>
 						<br>
 						[chroot] pacman -Sy<br>
-						[chroot] pacman -S grub git wpa_supplicant networkmanager net-tools<br>
+						[chroot] pacman -S grub git net-tools<br>
 						<br>
 						[chroot] sed -i 's/modconf block/modconf block keymap encrypt lvm2/' /etc/mkinitcpio.conf<br>
 						[chroot] grub-install --target=i386-pc --recheck /dev/sda<br>
