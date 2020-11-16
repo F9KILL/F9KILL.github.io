@@ -94,7 +94,7 @@
     					&nbsp&nbsp&nbsp&nbsp include = /etc/pacman.d/mirrorlist<br>
 						<br>
 						[chroot] pacman -Sy<br>
-						[chroot] pacman -S grub net-tools intel-ucode<br>
+						[chroot] pacman -S grub net-tools intel-ucode linux-lts linux-firmware linux-headers lvm2 <br>
 						<br>
 						[chroot] sed -i 's/modconf block/modconf block keymap encrypt lvm2/' /etc/mkinitcpio.conf<br>
 						[chroot] grub-install --target=i386-pc /dev/sda<br>
