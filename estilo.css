@@ -12,13 +12,13 @@
     border-radius: 10px;
     border-style: solid;
     border-color: #00AA00;
-    border-width: 3px;
+    border-width: 1px;
 }
 
 .conteudo-header {
     margin: 0 auto;
     padding: 20px;
-    color: #00FF00;
+    color: #00AA00;
     text-align: center;
     font-family: Montserrat;
     font-size: 40px;
@@ -27,11 +27,11 @@
 .menu {
     width: 99.5%; /* valor necessário para compensar tamanho da borda.*/
     height: 30px;
-    margin: 1% auto;
+    margin: 3% auto;
     border-radius: 10px;
     border-style: solid;
     border-color: #00AA00;
-    border-width: 3px;
+    border-width: 1px;
 }
 
 .corpo-menu {
@@ -41,7 +41,7 @@
     border-radius: 10px;
     border-style: solid;
     border-color: #00AA00;
-    border-width: 3px;
+    border-width: 1px;
     float: left;
 }
 
@@ -52,7 +52,7 @@
     border-radius: 10px;
     border-style: solid;
     border-color: #00AA00;
-    border-width: 3px;
+    border-width: 1px;
     margin-left: auto;
     float: right;
 }
@@ -60,11 +60,11 @@
 .rodape {
     width: 99.5%; /* valor necessário para compensar tamanho da borda.*/
     height: 70px;
-    margin: 1% auto;
+    margin: 3% auto;
     border-radius: 10px;
     border-style: solid;
     border-color: #00AA00;
-    border-width: 3px;
+    border-width: 1px;
 }
 
 .conteudo-rodape {
@@ -76,9 +76,9 @@
 }
 
 .shell {
-    border: 2px solid #00AA00;
+    border: 1px solid #00AA00;
     padding: 10px 10px;
-    background-color: black;
+    background-color: #000A01;
     color: #00FF00;
     width: 90%;
     font-family: Hack;
@@ -88,7 +88,7 @@
 
 h1, h2, h3, h4, h5 {
     font-family: Montserrat;
-    color: #00FF00;
+    color: #00AA00;
 }
 
 p {
