@@ -1,44 +1,120 @@
-.cabecalho {
-    width: 70%;
-    height: 150px;
+.corpo {
+    width: 85%;
+    height: auto;
     margin: auto;
-    background:#00754b;
+}
+
+.cabecalho {
+    padding: 1px 2px;
+    width: 99.5%; /* valor necessário para compensar tamanho da borda.*/
+    height: 100px;
+    margin: 0 auto;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #00AA00;
+    border-width: 3px;
+}
+
+.conteudo-header {
+    margin: 0 auto;
+    padding: 20px;
+    color: #00FF00;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 40px;
 }
 
 .menu {
-    width: 70%;
+    width: 99.5%; /* valor necessário para compensar tamanho da borda.*/
     height: 30px;
-    margin: auto;
-    background: red;
-}
-
-.corpo {
-    width: 70%;
-    height: 1020px;
-    margin: auto;
-    background: blue;
+    margin: 1% auto;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #00AA00;
+    border-width: 3px;
 }
 
 .corpo-menu {
-    width: 25%;
+    padding: 2% 2%;
+    width: 15%;
     height: 100%;
-    margin: auto;
-    background: green;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #00AA00;
+    border-width: 3px;
     float: left;
 }
 
 .conteudo {
-    width: 100%;
+    padding: 0 2%;
+    width: 75%;
     height: 100%;
-    margin: auto;
-    background: orange;
-    
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #00AA00;
+    border-width: 3px;
+    margin-left: auto;
+    float: right;
 }
 
 .rodape {
-    width: 70%;
+    width: 99.5%; /* valor necessário para compensar tamanho da borda.*/
     height: 70px;
-    margin: auto;
-    background: yellow;
+    margin: 1% auto;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #00AA00;
+    border-width: 3px;
+}
+
+.conteudo-rodape {
+    padding: 10px;
     text-align: center;
+    margin: auto;
+    font-size: 12px;
+    font-family: Montserrat;
+}
+
+.shell {
+    border: 2px solid #00AA00;
+    padding: 10px 10px;
+    background-color: black;
+    color: #00FF00;
+    width: 90%;
+    font-family: Hack;
+    font-size: 13px;
+    font-style: italic;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: Montserrat;
+    color: #00FF00;
+}
+
+p {
+    font-family: Roboto;
+}
+
+a {
+    color: white;
+}
+
+body {
+    background-color: black;
+    color: white;
+}
+
+@font-face {
+    font-family: Montserrat;
+    src: local(Montserrat), url(fonts/Montserrat/Montserrat-Regular.ttf);
+}
+
+@font-face {
+    font-family: Roboto;
+    src: local(Roboto-Light), url(fonts/Roboto/Roboto-Light.ttf);
+}
+
+@font-face {
+    font-family: Hack;
+    src: local(Hack), url(fonts/Hack/Hack-Regular.ttf);
 }
