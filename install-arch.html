@@ -1,0 +1,130 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Instalação Arch Linux</title>
+
+		<style type="text/css">
+			body {
+				color: #000000;
+				font-family: Monospace;
+				background-color: #FFFFFF;
+			}
+			
+			table {
+				color: #ACACAB;
+				background-color: #000000;
+				border-collapse: collapse;
+				border: 1px solid #000000;	
+				font-size: 11pt;
+				border-color: #000000;
+			}
+			
+			tr, td {
+				padding: 15px;
+			}
+			
+			font {
+				color: #FF0000;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<center>
+			<h1>Arch Linux</h1>
+			<h3>Instalação de bolso<br>2018</h3>
+			
+			<table border='1'>
+				<tr>
+					<td>
+						<p>
+						Arch Linux 4.17.11-arch1 (tty1)<br>
+						<br>
+						archiso login: root (automatic login)<br>
+						<br>
+						<font>root</font>@archiso ~ # loadkeys br-abnt2<br>
+						<font>root</font>@archiso ~ # wifi-menu<br>
+						<font>root</font>@archiso ~ # systemctl start dhcpcd<br>
+						<font>root</font>@archiso ~ # timedatectl set-ntp true<br>
+						<font>root</font>@archiso ~ # cfdisk<br><br>
+								&nbsp&nbsp&nbsp&nbsp /dev/sda1	boot	512M --> Type: 83<br>
+								&nbsp&nbsp&nbsp&nbsp /dev/sda2	LVM --------> Type: 8e<br>	
+						<br>
+						<font>root</font>@archiso ~ # modprobe dm-crypt<br>
+						<font>root</font>@archiso ~ # cryptsetup -c aes-xts-plain64 -y -s 512 luksFormat /dev/sda2<br>
+						<font>root</font>@archiso ~ # cryptsetup luksOpen /dev/sda2 lvm<br>
+						<br>
+						<font>root</font>@archiso ~ # pvcreate /dev/mapper/lvm<br>
+						<font>root</font>@archiso ~ # vgcreate main /dev/mapper/lvm<br>
+						<font>root</font>@archiso ~ # lvcreate -L 40G -n root main<br>
+						<font>root</font>@archiso ~ # lvcreate -L 4G -n swap main<br>
+						<font>root</font>@archiso ~ # lvcreate -l 100%FREE -n home main<br>
+						<br>
+						<font>root</font>@archiso ~ # mkfs.ext2 /dev/sda1<br>
+						<font>root</font>@archiso ~ # mkfs.ext4 /dev/mapper/main-root<br>
+						<font>root</font>@archiso ~ # mkfs.ext4 /dev/mapper/main-home<br>
+						<font>root</font>@archiso ~ # mkswap /dev/mapper/main-swap<br>
+						<font>root</font>@archiso ~ # swapon /dev/mapper/main-swap<br>
+						<br>
+						<font>root</font>@archiso ~ # mount /dev/mapper/main-root /mnt<br>
+						<font>root</font>@archiso ~ # mkdir /mnt/boot<br>
+						<font>root</font>@archiso ~ # mkdir /mnt/home<br>
+						<font>root</font>@archiso ~ # mount /dev/sda1 /mnt/boot<br>
+						<font>root</font>@archiso ~ # mount /dev/mapper/main-home /mnt/home<br>
+						<br>
+						<font>root</font>@archiso ~ # pacstrap /mnt base base-devel<br>
+						<font>root</font>@archiso ~ # genfstab -p -U /mnt >> /mnt/etc/fstab<br>
+						<font>root</font>@archiso ~ # arch-chroot /mnt<br>
+						<br>
+						[chroot] echo "xps" >> /etc/hostname<br>
+						[chroot] ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime<br>
+						[chroot] hwclock --systohc --utc<br>
+						<br>
+						[chroot] echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen<br>
+						[chroot] locale-gen<br>
+						[chroot] echo "LANG=en_US.UTF-8" >> /etc/locale.conf<br>
+						[chroot] echo "KEYMAP=br-abnt2" >> /etc/vconsole.conf<br>
+						<br>
+						[chroot] echo "127.0.0.1 localhost" >> /etc/hosts<br>
+						[chroot] echo "::1 localhost" >> /etc/hosts<br>
+						[chroot] echo "127.0.1.1 xps.localdomain xps" >> /etc/hosts<br>
+						<br>
+						[editar] No arquivo "/etc/pacman.conf" descomente as linhas:<br>
+						&nbsp&nbsp&nbsp&nbsp [multilib]<br>
+    					&nbsp&nbsp&nbsp&nbsp include = /etc/pacman.d/mirrorlist<br>
+						<br>
+						[chroot] pacman -Sy<br>
+						[chroot] pacman -S grub net-tools intel-ucode linux-lts linux-firmware linux-headers lvm2 <br>
+						<br>
+						[chroot] sed -i 's/modconf block/modconf block keymap encrypt lvm2/' /etc/mkinitcpio.conf<br>
+						[chroot] grub-install --target=i386-pc /dev/sda<br>
+						[chroot] cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo<br>
+						[chroot] mkinitcpio -p linux<br>
+						<br>
+						[editar] No arquivo /etc/default/grub mude a linha:<br>
+						&nbsp&nbsp&nbsp&nbspGRUB_CMDLINE_LINUX=””<br>
+						&nbsp&nbsp&nbsp&nbsppara<br>
+						&nbsp&nbsp&nbsp&nbspGRUB_CMDLINE_LINUX=”cryptdevice=/dev/sda2:main”<br>
+						<br>
+						[chroot] grub-mkconfig -o /boot/grub/grub.cfg<br>
+						[chroot] passwd<br>
+						[chroot] useradd -m -g users -G wheel,storage,power -s /bin/bash f9kill<br>
+						[chroot] passwd f9kill<br>
+						[chroot] exit<br>
+						<br>
+						<font>root</font>@archiso ~ # umount -R /mnt<br>
+						<font>root</font>@archiso ~ # reboot
+						</p>
+					</td>
+				</tr>
+			</table>
+			<br>
+			<h3>Referências:</h3>
+			<a href="https://gjuniioor.github.io/posts/archlinux-lvm-luks/">gjuniioor.github.io/posts/archlinux-lvm-luks/</a><br>
+			<a href="https://wiki.archlinux.org/index.php/Installation_guide">wiki.archlinux.org/index.php/Installation_guide</a><br>
+			<a href="https://sempreupdate.com.br/como-instalar-o-arch-linux/">sempreupdate.com.br/como-instalar-o-arch-linux/</a><br>
+			<a href="https://medium.com/@galdino1993/instala%C3%A7%C3%A3o-e-configura%C3%A7%C3%A3o-do-arch-linux-625c406e56ff">medium.com/@galdino1993</a><br>
+			<br>
+		</center>
+	</body>
+</html>
